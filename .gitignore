@@ -1,45 +1,213 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# ===========================
+# Flutter / Dart
+# ===========================
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
-/build/
+build/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+*.dart.js
+*.dart.js.deps
+*.dart.js.map
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+*.unopt.js.map
 
-# Symbolication related
+# ===========================
+# Android
+# ===========================
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/**/GeneratedPluginRegistrant.kt
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/android/.idea
+**/android/key.properties
+*.jks
+*.keystore
+
+# ===========================
+# iOS / macOS
+# ===========================
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+**/macos/.symlinks/
+
+# ===========================
+# Windows
+# ===========================
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# ===========================
+# Linux
+# ===========================
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake
+
+# ===========================
+# Web
+# ===========================
+**/web/favicon.png
+**/web/icons/
+
+# ===========================
+# IDE and Editors
+# ===========================
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Cursor
+.cursor/
+
+# ===========================
+# OS Generated Files
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ===========================
+# Logs and Databases
+# ===========================
+*.log
+*.sql
+*.sqlite
+*.db
+
+# ===========================
+# Build Artifacts
+# ===========================
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+*.pyo
+
+# ===========================
+# Symbolication / Obfuscation
+# ===========================
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# ===========================
+# Coverage
+# ===========================
+coverage/
+*.lcov
 
+# ===========================
+# Test
+# ===========================
+**/test-results/
+**/test-reports/
+
+# ===========================
+# Miscellaneous
+# ===========================
+*.swp
+*.swo
+*~
+*.bak
+*.tmp
+*.temp
+.history
+.svn/
+.atom/
+.buildlog/
+migrate_working_dir/
+
+# ===========================
+# Environment / Secrets
+# ===========================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.json
+google-services.json
+GoogleService-Info.plist
+
+# ===========================
+# Dependencies (optional - usually committed)
+# ===========================
+# pubspec.lock  # Uncomment to ignore lock file
+
+# ===========================
+# FVM (Flutter Version Management)
+# ===========================
+.fvm/
+.fvmrc
+
+# ===========================
+# Melos (Monorepo)
+# ===========================
+.melos/
+
+# ===========================
+# Custom Scripts (optional)
+# ===========================
+# Uncomment if you don't want to track PowerShell scripts
+# *.ps1
