@@ -2,17 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:provider/provider.dart';
-import '../../../core/models/material_type.dart';
+import '../../../core/models/material_type.dart' as eco;
 import '../../../core/models/recycling_point_model.dart';
 import '../../../core/services/object_detection_service.dart';
 import '../../../core/services/location_service.dart';
 import '../../../core/services/recycle_actions_service.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../../widgets/detection_overlay.dart';
 
 class ObjectDetectionScreen extends StatefulWidget {
   final RecyclingPointModel recyclingPoint;
-  final MaterialType objectType;
+  final eco.MaterialType objectType;
 
   const ObjectDetectionScreen({
     super.key,
@@ -291,7 +292,7 @@ class _ObjectDetectionScreenState extends State<ObjectDetectionScreen> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.9),
+                  color: Colors.red.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(

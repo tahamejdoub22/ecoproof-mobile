@@ -20,37 +20,42 @@ class DetectionOverlay extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: errors.isEmpty ? Colors.green.withOpacity(0.9) : Colors.orange.withOpacity(0.9),
+          color: errors.isEmpty
+              ? Colors.green.withValues(alpha: 0.9)
+              : Colors.orange.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               'Detection Status',
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 8),
-            _buildStat('Confidence', '${(result.confidence * 100).toStringAsFixed(1)}%'),
-            _buildStat('Object Size', '${(result.boundingBoxAreaRatio * 100).toStringAsFixed(1)}%'),
+            _buildStat('Confidence',
+                '${(result.confidence * 100).toStringAsFixed(1)}%'),
+            _buildStat('Object Size',
+                '${(result.boundingBoxAreaRatio * 100).toStringAsFixed(1)}%'),
             _buildStat('Frames', '${result.frameCountDetected}/4'),
-            _buildStat('Motion', '${(result.motionScore * 100).toStringAsFixed(1)}%'),
+            _buildStat(
+                'Motion', '${(result.motionScore * 100).toStringAsFixed(1)}%'),
             if (errors.isNotEmpty) ...[
               const SizedBox(height: 8),
               const Divider(color: Colors.white),
               const SizedBox(height: 8),
               ...errors.map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text(
-                  '• $e',
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                ),
-              )),
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      '• $e',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  )),
             ],
           ],
         ),
@@ -70,11 +75,11 @@ class DetectionOverlay extends StatelessWidget {
           ),
           Text(
             value,
-            style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
           ),
         ],
       ),
     );
   }
 }
-

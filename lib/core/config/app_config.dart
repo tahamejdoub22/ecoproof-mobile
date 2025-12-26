@@ -10,6 +10,7 @@ class AppConfig {
   static const String loginEndpoint = '/auth/login';
   static const String registerEndpoint = '/auth/register';
   static const String refreshTokenEndpoint = '/auth/refresh';
+  static const String logoutEndpoint = '/auth/logout';
   
   // User endpoints
   static const String profileEndpoint = '/users/profile';

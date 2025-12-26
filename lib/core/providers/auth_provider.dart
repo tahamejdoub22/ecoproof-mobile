@@ -7,10 +7,6 @@ class AuthProvider with ChangeNotifier {
   final AuthService authService;
   final ApiService apiService;
 
-class AuthProvider with ChangeNotifier {
-  final AuthService authService;
-  final ApiService apiService;
-
   UserModel? _user;
   bool _isLoading = false;
   String? _errorMessage;
@@ -20,7 +16,7 @@ class AuthProvider with ChangeNotifier {
     required this.authService,
     required this.apiService,
   }) {
-    _checkAuthStatus();
+    checkAuthStatus();
   }
 
   UserModel? get user => _user;
@@ -28,7 +24,7 @@ class AuthProvider with ChangeNotifier {
   String? get errorMessage => _errorMessage;
   bool get isAuthenticated => _isAuthenticated;
 
-  Future<void> _checkAuthStatus() async {
+  Future<void> checkAuthStatus() async {
     _isAuthenticated = authService.isLoggedIn();
     if (_isAuthenticated) {
       await loadUserProfile();
@@ -80,8 +76,7 @@ class AuthProvider with ChangeNotifier {
       final result = await authService.register(
         email: email,
         password: password,
-        name: name,
-        additionalData: additionalData,
+        deviceFingerprint: additionalData?['deviceFingerprint'] as String?,
       );
 
       if (result['success'] == true) {
@@ -136,4 +131,3 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-

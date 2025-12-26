@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/models/recycling_point_model.dart';
-import '../../../core/models/material_type.dart';
+import '../../../core/models/material_type.dart' as eco;
 import '../../../core/services/recycling_points_service.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../../screens/camera/object_detection_screen.dart';
@@ -123,7 +123,7 @@ class _RecyclingPointsScreenState extends State<RecyclingPointsScreen> {
 
 class MaterialSelectionSheet extends StatelessWidget {
   final RecyclingPointModel point;
-  final Function(MaterialType) onMaterialSelected;
+  final Function(eco.MaterialType) onMaterialSelected;
 
   const MaterialSelectionSheet({
     super.key,
@@ -156,17 +156,17 @@ class MaterialSelectionSheet extends StatelessWidget {
     );
   }
 
-  IconData _getMaterialIcon(MaterialType material) {
+  IconData _getMaterialIcon(eco.MaterialType material) {
     switch (material) {
-      case MaterialType.cardboard:
+      case eco.MaterialType.cardboard:
         return Icons.inventory_2;
-      case MaterialType.glass:
+      case eco.MaterialType.glass:
         return Icons.wine_bar;
-      case MaterialType.metal:
+      case eco.MaterialType.metal:
         return Icons.build;
-      case MaterialType.paper:
+      case eco.MaterialType.paper:
         return Icons.description;
-      case MaterialType.plastic:
+      case eco.MaterialType.plastic:
         return Icons.water_drop;
     }
   }

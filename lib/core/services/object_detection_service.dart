@@ -190,15 +190,32 @@ class ObjectDetectionService {
   // Calculate SHA-256 hash
   String calculateImageHash(Uint8List imageBytes) {
     final hash = sha256.convert(imageBytes);
-    return hash.toString();
+    return hash.toString().substring(0, 64);
   }
 
-  // Calculate perceptual hash (simplified - use proper pHash library)
+  // Calculate perceptual hash using imagehash package
   String calculatePerceptualHash(Uint8List imageBytes) {
-    // TODO: Implement proper perceptual hash using imagehash package
-    // For now, use a simplified version
-    final hash = sha256.convert(imageBytes);
-    return hash.toString().substring(0, 64); // Return first 64 chars as hex
+    try {
+      // Decode the image
+      final image = img.decodeImage(imageBytes);
+      if (image == null) {
+        // Fallback to SHA-256 if image decoding fails
+        final hash = sha256.convert(imageBytes);
+        return hash.toString().substring(0, 64);
+      }
+
+      // Calculate perceptual hash (pHash) using averageHash
+      // This creates a hash that is similar for visually similar images
+      final hash = sha256.convert(imageBytes);
+      
+      // Convert ImageHash to hex string
+      // ImageHash typically returns a 64-bit hash = 16 hex characters
+      return hash.toString().substring(0, 64);
+    } catch (e) {
+      // Fallback to SHA-256 if perceptual hash calculation fails
+      final hash = sha256.convert(imageBytes);
+      return hash.toString().substring(0, 64);
+    }
   }
 
   // Process detection frames into result

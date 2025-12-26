@@ -1,3 +1,5 @@
+import 'material_type.dart';
+
 class RecyclingPointModel {
   final String id;
   final String name;
@@ -32,15 +34,20 @@ class RecyclingPointModel {
       latitude: (json['latitude'] ?? 0).toDouble(),
       longitude: (json['longitude'] ?? 0).toDouble(),
       radius: json['radius'] ?? 0,
-      altitude: json['altitude'] != null ? (json['altitude']).toDouble() : null,
+      altitude: json['altitude'] != null
+          ? (json['altitude'] as num).toDouble()
+          : null,
       allowedMaterials: (json['allowedMaterials'] as List<dynamic>?)
-              ?.map((e) => MaterialType.fromString(e.toString()) ?? MaterialType.plastic)
+              ?.map((e) =>
+                  MaterialType.fromString(e.toString()) ?? MaterialType.plastic)
               .toList() ??
           [],
       multiplier: (json['multiplier'] ?? 1.0).toDouble(),
       isActive: json['isActive'] ?? true,
-      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toIso8601String()),
-      updatedAt: DateTime.parse(json['updatedAt'] ?? DateTime.now().toIso8601String()),
+      createdAt:
+          DateTime.parse(json['createdAt'] ?? DateTime.now().toIso8601String()),
+      updatedAt:
+          DateTime.parse(json['updatedAt'] ?? DateTime.now().toIso8601String()),
     );
   }
 
@@ -60,4 +67,3 @@ class RecyclingPointModel {
     };
   }
 }
-
