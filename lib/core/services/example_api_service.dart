@@ -1,7 +1,6 @@
 // Example service showing how to add new API endpoints
 // You can create similar services for different features
 
-import '../config/app_config.dart';
 import 'api_service.dart';
 
 class ExampleApiService {

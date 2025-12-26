@@ -20,3 +20,5 @@ Write-Host "Checking installation..." -ForegroundColor Cyan
 flutter config --android-sdk "C:\Android\sdk"
 flutter doctor
 
+
+

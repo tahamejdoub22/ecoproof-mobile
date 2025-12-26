@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../../widgets/user_profile_card.dart';
-import '../recycling_points/recycling_points_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
