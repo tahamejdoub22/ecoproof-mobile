@@ -3,50 +3,56 @@ import 'package:provider/provider.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../home/home_screen.dart';
 import '../../widgets/custom_text_field.dart';
-import 'register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  Future<void> _handleLogin() async {
+  Future<void> _handleRegister() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final success = await authProvider.login(
-      _emailController.text.trim(),
-      _passwordController.text,
+    final success = await authProvider.register(
+      name: _nameController.text.trim(),
+      email: _emailController.text.trim(),
+      password: _passwordController.text,
     );
 
     if (!mounted) return;
 
     if (success) {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => const HomeScreen()),
+        (route) => false,
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(authProvider.errorMessage ?? 'Login failed'),
+          content: Text(authProvider.errorMessage ?? 'Registration failed'),
           backgroundColor: Colors.red,
         ),
       );
@@ -56,6 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sign Up'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -67,13 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Icon(
-                    Icons.eco,
+                    Icons.person_add,
                     size: 80,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Welcome to EcoProof',
+                    'Create Account',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -81,13 +93,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Sign in to continue',
+                    'Sign up to get started',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Colors.grey[600],
                         ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 32),
+                  CustomTextField(
+                    controller: _nameController,
+                    label: 'Full Name',
+                    hint: 'Enter your full name',
+                    prefixIcon: Icons.person,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
                   CustomTextField(
                     controller: _emailController,
                     label: 'Email',
@@ -133,11 +158,40 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
+                  const SizedBox(height: 16),
+                  CustomTextField(
+                    controller: _confirmPasswordController,
+                    label: 'Confirm Password',
+                    hint: 'Confirm your password',
+                    obscureText: _obscureConfirmPassword,
+                    prefixIcon: Icons.lock_outline,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 24),
                   Consumer<AuthProvider>(
                     builder: (context, authProvider, _) {
                       return ElevatedButton(
-                        onPressed: authProvider.isLoading ? null : _handleLogin,
+                        onPressed: authProvider.isLoading ? null : _handleRegister,
                         child: authProvider.isLoading
                             ? const SizedBox(
                                 height: 20,
@@ -148,21 +202,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Colors.white),
                                 ),
                               )
-                            : const Text('Sign In'),
+                            : const Text('Sign Up'),
                       );
                     },
                   ),
                   const SizedBox(height: 16),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
-                    child: const Text('Don\'t have an account? Sign up'),
+                    child: const Text('Already have an account? Sign in'),
                   ),
                 ],
               ),
